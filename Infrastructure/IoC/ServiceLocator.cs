@@ -1,6 +1,8 @@
 ﻿using ActionImplementations;
 using InterfaceActions.Actions;
 using Ninject;
+using Repository;
+using RepositoryInterfaces;
 
 namespace Infrastructure.IoC
 {
@@ -12,6 +14,8 @@ namespace Infrastructure.IoC
         {
             Kernel.Bind<INotifyUsersAction>().To<EmailNotification>();
             Kernel.Bind<INotifyUsersAction2>().To<SmsNotification>();
+            Kernel.Bind<ICarRepository>().To<CarRepository>();
+            Kernel.Bind<IDriverRepository>().To<DriverRepository>();
         }
 
         public static T Get<T>()

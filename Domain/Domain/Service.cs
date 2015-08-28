@@ -7,26 +7,26 @@ namespace Domain.Domain
     {
         public void Check(Car car)
         {
-            if (car.SystemOk)
+            if (car.GetSystemStatus())
             {
                 Console.WriteLine("Car's systems are OK..." + car.Name);
                 Console.WriteLine(new string('-', 30));
             }
             else
             {
-                
-                Console.WriteLine("Info=Service is needed - {0,-13} deffect = Battery{1,8}", car.Name, car.BattOk);
-                
+                //string composite = "Info={0,-20} deffect={1,15}";
+                Console.WriteLine("Info=Service is needed - {0,-13} deffect = Battery{1,8}", car.Name, car.GetBattStatus());
+                //Console.WriteLine("Service is needed.  " + car.Name + " Battery_ " + car.BattOk);
                 Console.WriteLine(new string('-', 30));
             }
-            
+            //return true;
         }
 
         public void Repair(Car car)
         {
-            if (car.BattOk == false)
+            if (car.GetBattStatus() == false)
             {
-                car.BattOk = true;
+                car.SetBattStatus( true);
             }
             car.CheckAllSystem();
             CashRegister bill = CashRegister.Payd;
