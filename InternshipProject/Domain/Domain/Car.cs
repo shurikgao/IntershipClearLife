@@ -1,36 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Domain.Domain.Decorator;
-using Domain.Domain.Observer;
-using Domain.Domain.Proxy;
-using Domain.Domain.TemplateMethod;
 
 namespace Domain.Domain
 {
-    public class Car : ITuning, IStartAirConditioner
+    public class Car : Entity, ITuning
     {
         protected bool Lights;
         private bool _engineIsStarted;
-        //string _make;
-        //int vol = 0;
-        public bool SystemOk;
-        public bool BattOk = true;
-        public IRdsSubscriber Receiver;
 
-        //public Car(String make2)
-        //{
-        //    make = make2;
-        //    // this make = make;
-        //} 
+        protected virtual bool SystemOk { get; set; }
 
+        public virtual bool GetSystemStatus()
+        {
+            return SystemOk;
+        }
 
-        //public string make
-        //{
-        //    get { return _make; }
-        //    set { _make = value; }
-        //}
+        protected virtual bool BattOk { get; set; }
 
-        public Car(string name, int engineVol, int tankVol, string bodyType)
+        public virtual bool GetBattStatus()
+        {
+            return true;
+        }
+
+        public virtual void SetBattStatus(bool value)
+        {
+            BattOk = value;
+        }
+
+        private IList<Driver> _drivers = new List<Driver>();
+
+        public Car(string name, int engineVol, int tankVol, string bodyType, string countryOfOrigin)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("name is required.");
@@ -40,23 +41,40 @@ namespace Domain.Domain
                 throw new ArgumentException("TankVol must be > 0.");
             if (!bodyType.Any())
                 throw new ArgumentException("Assign bodyType to a car.");
+            if (!countryOfOrigin.Any())
+                throw new ArgumentException("Assign countryOfOrigin to a car.");
 
             Name = name;
             EngineVol = engineVol;
             TankVol = tankVol;
             BodyType = bodyType;
-            Receiver = new RdsReceiver(name);
+            CountryOfOrigin = countryOfOrigin;
         }
 
-        public string Name { get; private set; }
-        public int EngineVol { get; private set; }
-        public int TankVol { get; private set; }
-        public string BodyType { get; private set; }
+        [Obsolete]
+        protected Car()
+        {
+        }
 
+        public virtual string Name { get; protected set; }
+        public virtual int EngineVol { get; protected set; }
+        public virtual int TankVol { get; protected set; }
+        public virtual string BodyType { get; protected set; }
+        public virtual string CountryOfOrigin { get; protected set; }
+
+        public virtual IList<Driver> Drivers
+        {
+            get { return _drivers; }
+        }
+
+        //public virtual void AddDriver(Driver driver)
+        //{
+        //    _drivers.Add(driver);
+        //}
 
         public virtual void CheckAllSystem()
         {
-            if (BattOk /* && tirePressure>2*/)
+            if (GetBattStatus() /* && tirePressure>2*/)
                 SystemOk = true;
             else
                 SystemOk = false;
@@ -70,7 +88,36 @@ namespace Domain.Domain
 
         public virtual void StartEngine()
         {
+            /*try
+            {
+            Console.WriteLine("Please add fuel:");
+            int vol = Convert.ToInt32(Console.ReadLine());
            
+                if (vol == 0)
+                {
+                    throw new Exception("Attempted to start engin with no fuel.");
+                    //_engineIsStarted = false;
+                }
+                
+                else
+                { 
+                    if (vol > 60)
+                    {
+                    throw new Exception ("Too much fuel.");
+                    } 
+
+                    else
+                    {
+                    _engineIsStarted = true;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+             */
+
             if (SystemOk)
             {
                 _engineIsStarted = true;
@@ -78,7 +125,7 @@ namespace Domain.Domain
             else
             {
                 _engineIsStarted = false;
-                Console.WriteLine("You have problems. Need service");
+                Console.WriteLine("You have problems. need service");
             }
         }
 
@@ -89,42 +136,21 @@ namespace Domain.Domain
             set { Lights = value; }
         }
 
-        public bool EngineIsStarted // readonly
+        public virtual bool EngineIsStarted // readonly
         {
             get { return _engineIsStarted; }
-            //set { _make = value; }
         }
+
 
         public override string ToString()
         {
             return "Car:" + Name + " " + BodyType + " / engine: " + EngineIsStarted + " / lights:" + lights;
         }
 
-        public void StartAirConditioner()
-        {
-            CheckAllSystem();
-            StartEngine();
-            CloseWindows();
-            Console.WriteLine("AirConditioner is working. t=20°");
-        }
-
-        private void CloseWindows()
-        {
-            Console.WriteLine(Name + "  All Windows are closed");
-        }
-
-        public void AddTuning()
+        public virtual void AddTuning()
         {
             Console.WriteLine(new string('+', 10));
-            Console.WriteLine("Car "+ Name + " ready for tune");
-            
+            Console.WriteLine("Car " + Name + " ready for tune");
         }
-
-        public void Drive()
-        {
-            Console.WriteLine("{0,-20} Let`s Go - o - o -o -o.",Driver.Name);
-        }
-
-        
     }
 }
