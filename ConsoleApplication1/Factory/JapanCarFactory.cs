@@ -12,10 +12,10 @@ namespace Factories.Factory
             _notifyUsersAction = notifyUsersAction;
         }
 
-        public JapanCar CreateNewJapanCar(string name, int engineVol, int tankVol, string bodyType, string countryOfOrigin, int percentOfSafety)
+        public JapanCar CreateNewJapanCar(string name, int engineVol, int tankVol, string bodyType)
             //Action<IProductOptions> optionalParams)
         {
-            var japanCar = new JapanCar(name, engineVol, tankVol, bodyType, countryOfOrigin,percentOfSafety);
+            var japanCar = new JapanCar(name, engineVol, tankVol, bodyType);
             OnJapanCarCreation(japanCar);
             return japanCar;
         }
@@ -24,7 +24,5 @@ namespace Factories.Factory
         {
             _notifyUsersAction.Notify(japanCar);
         }
-
-        public int percentOfSafety { get; set; }
     }
 }

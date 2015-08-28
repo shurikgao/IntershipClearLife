@@ -13,7 +13,7 @@ namespace Domain.Logger
         {
             using (FileStream fs = new FileStream(@"D:\log.txt", FileMode.Append))
             {
-                string tmp = string.Format("{0} : {1} ", DateTime.Now.AddMinutes(10), msg);
+                string tmp = string.Format("{0} : {1} ", DateTime.Now, msg);
                 byte[] buff = Encoding.Unicode.GetBytes(tmp+"\n");
                 fs.Write(buff,0, buff.Length);
             }

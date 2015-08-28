@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Domain.Domain.Decorator;
 
 namespace Domain.Domain
 {
     public class ChinaCar : Car
     {
-        public virtual int Originality { get; protected set; }
+        //public ChinaCar(string make) : base(make)
+        //{
 
-        public ChinaCar(string name, int engineVol, int tankVol, string bodyType, string countryOfOrigin,
-            int percentOfOriginalPieces)
-            : base(name, engineVol, tankVol, bodyType, countryOfOrigin)
+        //}
+
+        public ChinaCar(string name, int engineVol, int tankVol, string bodyType)
+            : base(name, engineVol, tankVol, bodyType)
         {
-            Originality = percentOfOriginalPieces;
         }
-
 
         public override void CheckAllSystem()
         {
@@ -20,9 +20,14 @@ namespace Domain.Domain
             SystemOk = true;
         }
 
-        [Obsolete]
-        protected ChinaCar()
+        /*public override bool checkAllSystem
         {
-        }
+           set
+            {
+                base.checkStstem = false;
+            }
+        }*/
+
+        
     }
 }

@@ -43,12 +43,15 @@
     <Compile Include="Domain\ChinaCar.cs" />
     <Compile Include="Domain\Decorator\Decorator.cs" />
     <Compile Include="Domain\Decorator\ITuning.cs" />
-    <Compile Include="Domain\Driver.cs" />
     <Compile Include="Domain\GermanyCar.cs" />
     <Compile Include="Domain\JapanCar.cs" />
+    <Compile Include="Domain\Observer\IRdsSubscriber.cs" />
+    <Compile Include="Domain\Observer\RdsReceiver.cs" />
+    <Compile Include="Domain\Observer\RDSTransmitter.cs" />
+    <Compile Include="Domain\Proxy\IDrive.cs" />
     <Compile Include="Domain\Proxy\Proxy.cs" />
     <Compile Include="Domain\Service.cs" />
-    <Compile Include="Domain\Entiry.cs" />
+    <Compile Include="Domain\TemplateMethod\IStartAirConditioner.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
