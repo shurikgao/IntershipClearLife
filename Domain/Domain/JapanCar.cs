@@ -1,47 +1,45 @@
-﻿namespace Domain.Domain
+﻿using System;
+
+namespace Domain.Domain
 {
-   public class JapanCar : Car 
+    public class JapanCar : Car
     {
-        //public JapanCar(string make) : base(make)
-        //{
-        //    //Add further instructions here.
-        //}
+        public virtual int Safety { get; protected set; }
 
-       public JapanCar(string name, int engineVol, int tankVol, string bodyType)
-           : base(name, engineVol, tankVol, bodyType)
-       {
+        public JapanCar(string name, int engineVol, int tankVol, string bodyType, string countryOfOrigin,
+            int percentOfSafety)
+            : base(name, engineVol, tankVol, bodyType, countryOfOrigin)
+        {
+            Safety = percentOfSafety;
+        }
 
-       }
-
-       public override void StartEngine()          // override params from base calss Car
+        public override void StartEngine() // override params from base calss Car
         {
             base.StartEngine();
             lights = true;
         }
 
-        public override bool lights      // property encapsulated
+        public override bool lights // property encapsulated
         {
-            // get { return _lights; }  
-             set
+            
+            set
             {
                 //_lights = engineIsStarted ? true : value;
                 if (EngineIsStarted)
                 {
-                    base.Lights = true;
+                    Lights = true;
                 }
                 else
                 {
-                    base.Lights = value;
+                    Lights = value;
                 }
-        
             }
-      
         }
-      
-
-         
-  
 
 
+        [Obsolete]
+        protected JapanCar()
+        {
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace Domain.Domain.Decorator
         public abstract void AddTuning();
     }
 
-    public class AirConditioner : TuningElements<Car>
+    public class AirConditioner : TuningElements<Car>,ITuning
     {
         public AirConditioner(Car i) : base(i)
         {
@@ -33,7 +33,7 @@ namespace Domain.Domain.Decorator
         }
     }
 
-    public class Parctronic : TuningElements<Car>
+    public class Parctronic : TuningElements<Car>, ITuning
     {
         public Parctronic(Car i)
             : base(i)
@@ -47,7 +47,7 @@ namespace Domain.Domain.Decorator
         }
     }
 
-    public class AlarmSystem : TuningElements<Car>
+    public class AlarmSystem : TuningElements<Car>, ITuning
     {
         public AlarmSystem(Car i)
             : base(i)
