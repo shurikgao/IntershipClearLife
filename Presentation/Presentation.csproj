@@ -33,9 +33,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HibernatingRhinos.Profiler.Appender">
-      <HintPath>..\packages\NHibernateProfiler.Appender.3.0.3075.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -69,13 +66,11 @@
       <Project>{19e4716a-fb33-4c87-9842-4c7de457fe35}</Project>
       <Name>InterfaceActions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RepositoryInterfaces\RepositoryInterfaces.csproj">
-      <Project>{1133e91f-9689-4673-96f1-0985677f716b}</Project>
-      <Name>RepositoryInterfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
